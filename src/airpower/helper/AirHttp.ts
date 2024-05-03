@@ -253,9 +253,8 @@ export class AirHttp {
   get(params?: IJson): Promise<any> {
     if (params) {
       const queryArray = []
-      // eslint-disable-next-line guard-for-in
       for (const key in params) {
-        queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
+        if (Object.prototype.hasOwnProperty.call(params, key)) queryArray.push(`${key}=${encodeURIComponent(params[key])}`)
       }
       if (this.url.includes('?')) {
         this.url += `&${queryArray.join('&')}`
